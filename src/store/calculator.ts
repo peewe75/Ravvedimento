@@ -34,7 +34,7 @@ interface CalculatorState {
   risultato: RisultatoCalcolo | null;
   isCalculating: boolean;
   error: string | null;
-  
+
   setStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -57,43 +57,43 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
   risultato: null,
   isCalculating: false,
   error: null,
-  
-  setStep: (step) => set({ step }),
-  
+
+  setStep: (step) => set({ step, error: null }),
+
   nextStep: () => {
     const { step } = get();
     if (step < 3) set({ step: step + 1 });
   },
-  
+
   prevStep: () => {
     const { step } = get();
     if (step > 1) set({ step: step - 1 });
   },
-  
+
   setInput: (newInput) => {
     const { input } = get();
     set({ input: { ...input, ...newInput } });
   },
-  
+
   calculate: () => {
     const { input } = get();
     set({ isCalculating: true, error: null });
-    
+
     try {
       const risultato = calcolaRavvedimento(input, TASSI_INTERESSE_STORICI);
       set({ risultato, isCalculating: false, step: 3 });
     } catch (err) {
-      set({ 
-        error: err instanceof Error ? err.message : 'Errore nel calcolo', 
-        isCalculating: false 
+      set({
+        error: err instanceof Error ? err.message : 'Errore nel calcolo',
+        isCalculating: false
       });
     }
   },
-  
-  reset: () => set({ 
-    step: 1, 
-    input: initialInput, 
-    risultato: null, 
-    error: null 
+
+  reset: () => set({
+    step: 1,
+    input: initialInput,
+    risultato: null,
+    error: null
   }),
 }));

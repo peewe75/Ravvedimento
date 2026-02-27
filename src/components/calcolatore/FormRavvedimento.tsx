@@ -26,7 +26,7 @@ type CalcoloFormData = z.infer<typeof calcoloSchema>
 
 export function FormRavvedimento() {
   const { step, input, setStep, setInput, calculate, reset, risultato, error } = useCalculatorStore()
-  
+
   const {
     register,
     handleSubmit,
@@ -61,15 +61,34 @@ export function FormRavvedimento() {
     if (isNaN(importo) || importo <= 0) {
       return;
     }
-    setInput({
-      codiceTributo: data.codiceTributo,
-      nomeTributo: TRIBUTI.find(t => t.codiceTributo === data.codiceTributo)?.nome || "",
-      importoOriginale: importo,
-      dataScadenza: new Date(data.dataScadenza),
-      dataVersamento: new Date(data.dataVersamento),
-    })
-    calculate()
-  }
+
+    if (step === 1) {
+      setInput({
+        codiceTributo: data.codiceTributo,
+        nomeTributo: TRIBUTI.find(t => t.codiceTributo === data.codiceTributo)?.nome || "",
+        importoOriginale: importo,
+      });
+      setStep(2);
+      return;
+    }
+
+    if (step === 2) {
+      const scadenza = new Date(data.dataScadenza);
+      const versamento = new Date(data.dataVersamento);
+
+      if (versamento <= scadenza) {
+        // L'errore verrà gestito dal calcolatore o possiamo mostrarlo qui
+      }
+
+      setInput({
+        codiceTributo: data.codiceTributo,
+        importoOriginale: importo,
+        dataScadenza: scadenza,
+        dataVersamento: versamento,
+      });
+      calculate();
+    }
+  };
 
   const handleBack = () => {
     if (step === 3) {
@@ -114,7 +133,7 @@ export function FormRavvedimento() {
           </div>
           <StepIndicator currentStep={step} />
         </CardHeader>
-        
+
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {step === 1 && (
@@ -144,7 +163,7 @@ export function FormRavvedimento() {
 
                 <div className="space-y-2">
                   <Label htmlFor="importoOriginale">Importo Tributo Dovuto (€)</Label>
-                    <Input
+                  <Input
                     id="importoOriginale"
                     type="number"
                     step="0.01"
