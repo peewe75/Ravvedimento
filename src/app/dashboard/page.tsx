@@ -4,10 +4,13 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { getFirestoreDB, getStoricoCalcoli } from "@/lib/firebase/client";
 import { doc, getDoc } from "firebase/firestore";
-import { Calculator, FileText, History, Clock, CheckCircle, TrendingUp, Download, Shield } from "lucide-react";
+import { Calculator, FileText, History, Clock, CheckCircle, TrendingUp, Download, Shield, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
+import { Button } from "@/components/ui/button";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { DocumentoPDF } from "@/components/pdf/DocumentoPDF";
 
 export default function DashboardPage() {
     const { user, isLoaded } = useUser();
@@ -162,10 +165,35 @@ export default function DashboardPage() {
                                                     <span className="font-semibold text-neutral-900">€ {item.totaleInteressi?.toFixed(2)}</span>
                                                 </div>
                                                 <div className="ml-auto">
-                                                    <button className="flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg transition-colors border border-primary/10">
-                                                        <Download className="h-3.5 w-3.5" />
-                                                        Scarica PDF
-                                                    </button>
+                                                    <PDFDownloadLink
+                                                        document={<DocumentoPDF risultato={{
+                                                            ...item,
+                                                            // Assicuriamoci che i campi input siano corretti per il PDF
+                                                            input: {
+                                                                importoOriginale: item.importoOriginale,
+                                                                dataScadenza: item.dataScadenza?.toDate() || new Date(),
+                                                                dataVersamento: item.dataVersamento?.toDate() || new Date(),
+                                                                codiceTributo: item.codiceTributo,
+                                                                nomeTributo: item.nomeTributo
+                                                            },
+                                                            calcolatoIl: item.createdAt?.toDate() || new Date()
+                                                        } as any} />}
+                                                        fileName={`ravvedimento_${item.codiceTributo}_${format(item.createdAt?.toDate() || new Date(), 'dd-MM-yyyy')}.pdf`}
+                                                    >
+                                                        {({ loading }) => (
+                                                            <Button
+                                                                className="flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg transition-colors border border-primary/10"
+                                                                disabled={loading}
+                                                            >
+                                                                {loading ? (
+                                                                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                                                ) : (
+                                                                    <Download className="h-3.5 w-3.5" />
+                                                                )}
+                                                                Scarica PDF
+                                                            </Button>
+                                                        )}
+                                                    </PDFDownloadLink>
                                                 </div>
                                             </div>
                                         </div>

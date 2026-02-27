@@ -12,10 +12,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { StepIndicator } from "./StepIndicator"
 import { format } from "date-fns"
-import { Calculator, Calendar, TrendingUp, ArrowRight, RotateCcw } from "lucide-react"
+import { Calculator, Calendar, TrendingUp, ArrowRight, RotateCcw, Download, Loader2 } from "lucide-react"
 import { useUser } from "@clerk/nextjs"
 import { calcolaRavvedimento } from "@/lib/calcoli/ravvedimento"
 import { saveCalcolo } from "@/lib/firebase/client"
+import { PDFDownloadLink } from "@react-pdf/renderer"
+import { DocumentoPDF } from "../pdf/DocumentoPDF"
 
 const calcoloSchema = z.object({
   codiceTributo: z.string().min(1, "Seleziona un tributo"),
@@ -316,9 +318,21 @@ export function FormRavvedimento() {
                   <Button type="button" variant="outline" onClick={reset} className="flex-1">
                     <RotateCcw className="mr-2 h-4 w-4" /> Nuovo Calcolo
                   </Button>
-                  <Button type="button" variant="default" className="flex-1" disabled>
-                    Scarica PDF (Presto)
-                  </Button>
+                  <PDFDownloadLink
+                    document={<DocumentoPDF risultato={risultato} />}
+                    fileName={`ravvedimento_${risultato.input.codiceTributo}_${format(new Date(), 'dd-MM-yyyy')}.pdf`}
+                    className="flex-1"
+                  >
+                    {({ loading }) => (
+                      <Button type="button" variant="default" className="w-full" disabled={loading}>
+                        {loading ? (
+                          <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generazione...</>
+                        ) : (
+                          <><Download className="mr-2 h-4 w-4" /> Scarica PDF</>
+                        )}
+                      </Button>
+                    )}
+                  </PDFDownloadLink>
                 </div>
               </div>
             )}
