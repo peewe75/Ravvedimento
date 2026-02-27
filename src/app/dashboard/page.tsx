@@ -1,15 +1,14 @@
 "use client";
 
-import { useUser } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { useUser, UserButton } from "@clerk/nextjs";
+import { useCallback, useEffect, useState } from "react";
 import { getFirestoreDB, getStoricoCalcoli } from "@/lib/firebase/client";
 import { doc, getDoc } from "firebase/firestore";
-import { Calculator, FileText, History, Clock, CheckCircle, TrendingUp, Download, Shield, Loader2 } from "lucide-react";
+import { Calculator, FileText, History, Clock, CheckCircle, TrendingUp, Download, Shield, Loader2, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { it } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { DocumentoPDF } from "@/components/pdf/DocumentoPDF";
 import { FormRavvedimento } from "@/components/calcolatore/FormRavvedimento";
@@ -20,10 +19,10 @@ export default function DashboardPage() {
     const [storico, setStorico] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function fetchData() {
-            if (isLoaded && user) {
-                const db = getFirestoreDB();
+    const fetchData = useCallback(async () => {
+        if (isLoaded && user) {
+            const db = getFirestoreDB();
+            try {
                 const userDoc = await getDoc(doc(db, "users", user.id));
                 if (userDoc.exists()) {
                     const data = userDoc.data();
@@ -40,15 +39,35 @@ export default function DashboardPage() {
                         daysRemaining: Math.max(0, diffDays),
                         endDate
                     });
+                } else {
+                    // Default trial info for new users
+                    setTrialInfo({
+                        plan: 'Free',
+                        daysRemaining: 14,
+                        trialDays: 14,
+                        trialStartDate: new Date()
+                    });
                 }
 
                 const calcoli = await getStoricoCalcoli(user.id);
                 setStorico(calcoli);
-                setLoading(false);
+            } catch (e) {
+                console.error("Errore fetch dati:", e);
             }
+            setLoading(false);
+        } else if (isLoaded && !user) {
+            setLoading(false);
         }
+    }, [isLoaded, user]);
+
+    useEffect(() => {
         fetchData();
-    }, [user, isLoaded]);
+
+        // Listener per aggiornare lo storico quando viene salvato un nuovo calcolo
+        const handleRefresh = () => fetchData();
+        window.addEventListener('calcoloSaved', handleRefresh);
+        return () => window.removeEventListener('calcoloSaved', handleRefresh);
+    }, [fetchData]);
 
     if (loading) {
         return (
@@ -217,7 +236,9 @@ export default function DashboardPage() {
                             </div>
 
                             <div className="p-4 bg-neutral-50/50 border-t border-neutral-100 text-center">
-                                <button className="text-xs font-bold text-primary hover:text-primary-dark transition-colors">Mostra tutti i calcoli</button>
+                                <Button variant="ghost" size="sm" className="text-xs font-bold text-primary hover:text-primary-dark transition-colors" onClick={() => fetchData()}>
+                                    <RefreshCw className="mr-2 h-3 w-3" /> Aggiorna Storico
+                                </Button>
                             </div>
                         </div>
 

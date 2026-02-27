@@ -56,7 +56,10 @@ export function FormRavvedimento() {
   const { user } = useUser();
 
   const onSubmit = async (data: CalcoloFormData) => {
-    const importo = parseFloat(data.importoOriginale);
+    // Gestiamo sia la virgola che il punto come separatore decimale
+    const importoStr = data.importoOriginale.replace(',', '.');
+    const importo = parseFloat(importoStr);
+
     if (isNaN(importo) || importo <= 0) {
       return;
     }
@@ -97,6 +100,10 @@ export function FormRavvedimento() {
             nomeTributo: TRIBUTI.find(t => t.codiceTributo === data.codiceTributo)?.nome || "",
           });
           await saveCalcolo(risultato, user.id);
+
+          // Dispatch dell'evento per aggiornare la dashboard immediatamente
+          window.dispatchEvent(new CustomEvent('calcoloSaved'));
+
         } catch (e) {
           console.error("Errore salvataggio calcolo:", e);
         }
