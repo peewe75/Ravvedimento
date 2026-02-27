@@ -1,29 +1,43 @@
 import { Calculator, FileText, History, Shield, Clock, CheckCircle } from "lucide-react"
 import { FormRavvedimento } from "@/components/calcolatore/FormRavvedimento"
+import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs"
+import Link from "next/link"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-50">
       <header className="bg-white border-b border-neutral-200 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
               <Calculator className="h-5 w-5 text-white" />
             </div>
             <span className="text-xl font-bold text-neutral-900">RavvedimentoFacile</span>
-          </div>
+          </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-600">
             <a href="#come-funziona" className="hover:text-primary transition-colors">Come funziona</a>
             <a href="#vantaggi" className="hover:text-primary transition-colors">Vantaggi</a>
             <a href="#prezzi" className="hover:text-primary transition-colors">Prezzi</a>
+            <SignedIn>
+              <Link href="/dashboard" className="hover:text-primary transition-colors text-primary font-semibold">Vai alla Dashboard</Link>
+            </SignedIn>
           </nav>
           <div className="flex items-center gap-3">
-            <button className="text-sm font-medium text-neutral-600 hover:text-primary transition-colors">
-              Accedi
-            </button>
-            <button className="bg-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
-              Prova Gratis
-            </button>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="text-sm font-medium text-neutral-600 hover:text-primary transition-colors">
+                  Accedi
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button className="bg-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
+                  Prova Gratis
+                </button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
           </div>
         </div>
       </header>
@@ -36,8 +50,8 @@ export default function Home() {
                 Il ravvedimento operoso, <span className="text-primary">finalmente semplice</span>
               </h1>
               <p className="text-lg text-neutral-600 max-w-lg">
-                Calcola sanzioni e interessi legali in pochi secondi. 
-                Sostituisci i tuoi fogli Excel con uno strumento professionale 
+                Calcola sanzioni e interessi legali in pochi secondi.
+                Sostituisci i tuoi fogli Excel con uno strumento professionale
                 sempre aggiornato alla normativa vigente.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -55,7 +69,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            
+
             <div className="lg:pl-8">
               <FormRavvedimento />
             </div>
@@ -70,7 +84,7 @@ export default function Home() {
                 Tre semplici passaggi per ottenere il tuo calcolo preciso e professionale
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
@@ -106,7 +120,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-neutral-900 mb-4">Perché sceglierci</h2>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
@@ -146,7 +160,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-neutral-900 mb-4">Piani e prezzi</h2>
               <p className="text-neutral-600">Scegli il piano più adatto alle tue esigenze</p>
             </div>
-            
+
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="border border-neutral-200 rounded-xl p-6">
                 <h3 className="font-semibold text-lg text-neutral-900 mb-2">Free</h3>
@@ -159,7 +173,7 @@ export default function Home() {
                   Inizia gratis
                 </button>
               </div>
-              
+
               <div className="border-2 border-primary rounded-xl p-6 relative">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-medium px-3 py-1 rounded-full">
                   Più popolare
@@ -176,7 +190,7 @@ export default function Home() {
                   Prova gratis
                 </button>
               </div>
-              
+
               <div className="border border-neutral-200 rounded-xl p-6">
                 <h3 className="font-semibold text-lg text-neutral-900 mb-2">Studio</h3>
                 <p className="text-3xl font-bold text-neutral-900 mb-4">€49<span className="text-sm font-normal text-neutral-500">/mese</span></p>

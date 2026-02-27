@@ -12,8 +12,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { StepIndicator } from "./StepIndicator"
 import { format } from "date-fns"
-import { it } from "date-fns/locale"
 import { Calculator, Calendar, TrendingUp, ArrowRight, RotateCcw } from "lucide-react"
+import { useUser } from "@clerk/nextjs"
+import { calcolaRavvedimento } from "@/lib/calcoli/ravvedimento"
+import { saveCalcolo } from "@/lib/firebase/client"
 
 const calcoloSchema = z.object({
   codiceTributo: z.string().min(1, "Seleziona un tributo"),
@@ -56,7 +58,9 @@ export function FormRavvedimento() {
     if (input.dataVersamento) setValue("dataVersamento", format(input.dataVersamento, 'yyyy-MM-dd'))
   }, [])
 
-  const onSubmit = (data: CalcoloFormData) => {
+  const { user } = useUser();
+
+  const onSubmit = async (data: CalcoloFormData) => {
     const importo = parseFloat(data.importoOriginale);
     if (isNaN(importo) || importo <= 0) {
       return;
@@ -76,17 +80,32 @@ export function FormRavvedimento() {
       const scadenza = new Date(data.dataScadenza);
       const versamento = new Date(data.dataVersamento);
 
-      if (versamento <= scadenza) {
-        // L'errore verrà gestito dal calcolatore o possiamo mostrarlo qui
-      }
-
       setInput({
         codiceTributo: data.codiceTributo,
         importoOriginale: importo,
         dataScadenza: scadenza,
         dataVersamento: versamento,
       });
+
       calculate();
+
+      // Se l'utente è loggato, salviamo il calcolo
+      if (user) {
+        // Il calcolo avviene nello store, quindi dobbiamo aspettare che sia pronto o ricalcolare qui per il salvataggio
+        // Per semplicità, richiamiamo calcolaRavvedimento qui e salviamo
+        try {
+          const risultato = calcolaRavvedimento({
+            importoOriginale: importo,
+            dataScadenza: scadenza,
+            dataVersamento: versamento,
+            codiceTributo: data.codiceTributo,
+            nomeTributo: TRIBUTI.find(t => t.codiceTributo === data.codiceTributo)?.nome || "",
+          });
+          await saveCalcolo(risultato, user.id);
+        } catch (e) {
+          console.error("Errore salvataggio calcolo:", e);
+        }
+      }
     }
   };
 

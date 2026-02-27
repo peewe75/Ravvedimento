@@ -13,16 +13,24 @@ export const metadata: Metadata = {
   keywords: ["ravvedimento operoso", "calcolatore", "sanzioni", "interessi legali", "F24", "commercialisti"],
 };
 
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
+import { UserSync } from "@/components/auth/UserSync";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it">
-      <body className={`${inter.variable} antialiased`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="it">
+        <body className={`${inter.variable} antialiased`}>
+          <SignedIn>
+            <UserSync />
+          </SignedIn>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
