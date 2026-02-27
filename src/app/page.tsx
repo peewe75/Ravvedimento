@@ -1,5 +1,4 @@
 import { Calculator, FileText, History, Shield, Clock, CheckCircle } from "lucide-react"
-import { FormRavvedimento } from "@/components/calcolatore/FormRavvedimento"
 import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs"
 import Link from "next/link"
 
@@ -71,7 +70,29 @@ export default function Home() {
             </div>
 
             <div className="lg:pl-8">
-              <FormRavvedimento />
+              <div className="aspect-video bg-neutral-900 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden relative group cursor-pointer border-4 border-white">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+                <div className="h-20 w-20 bg-primary rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform relative z-10">
+                  <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white/60 text-sm font-medium">Guarda come funziona RavvedimentoFacile</p>
+                </div>
+              </div>
+              <div className="mt-8 flex justify-center lg:justify-start">
+                <SignedOut>
+                  <SignUpButton mode="modal">
+                    <button className="bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 hover:-translate-y-1">
+                      Inizia la prova gratuita
+                    </button>
+                  </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                  <Link href="/dashboard" className="bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 hover:-translate-y-1">
+                    Vai al calcolatore
+                  </Link>
+                </SignedIn>
+              </div>
             </div>
           </div>
         </section>
