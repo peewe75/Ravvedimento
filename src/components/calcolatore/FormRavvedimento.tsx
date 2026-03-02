@@ -113,8 +113,8 @@ export function FormRavvedimento() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <Card className="border-none shadow-2xl shadow-neutral-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-sm">
-        <CardHeader className="bg-neutral-50/50 border-b border-neutral-100 p-8">
+      <Card className="border-none shadow-2xl shadow-neutral-200/50 rounded-2xl md:rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-sm">
+        <CardHeader className="bg-neutral-50/50 border-b border-neutral-100 p-5 md:p-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
@@ -130,7 +130,7 @@ export function FormRavvedimento() {
           <StepIndicator currentStep={step} />
         </CardHeader>
 
-        <CardContent className="p-8">
+        <CardContent className="p-5 md:p-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {step === 1 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -229,21 +229,21 @@ export function FormRavvedimento() {
 
             {step === 3 && risultato && (
               <div className="space-y-8 animate-in zoom-in-95 duration-500">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-6 rounded-3xl bg-neutral-900 text-white shadow-xl shadow-neutral-200 overflow-hidden relative">
-                    <TrendingUp className="absolute top-2 right-2 h-20 w-20 opacity-10" />
-                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1 relative z-10">Totale Ravvedimento</p>
-                    <p className="text-3xl font-black text-white relative z-10">€ {risultato.totaleDaVersare.toLocaleString('it-IT', { minimumFractionDigits: 2 })}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                  <div className="p-5 md:p-6 rounded-2xl md:rounded-3xl bg-neutral-900 text-white shadow-xl shadow-neutral-200 overflow-hidden relative">
+                    <TrendingUp className="absolute top-2 right-2 h-16 w-16 md:h-20 md:w-20 opacity-10" />
+                    <p className="text-[9px] md:text-[10px] font-bold text-primary uppercase tracking-widest mb-1 relative z-10">Totale Ravvedimento</p>
+                    <p className="text-2xl md:text-3xl font-black text-white relative z-10">€ {risultato.totaleDaVersare.toLocaleString('it-IT', { minimumFractionDigits: 2 })}</p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-5 rounded-3xl bg-neutral-50 border border-neutral-100">
-                      <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Sanzione</p>
-                      <p className="text-lg font-black text-neutral-900">€ {risultato.sanzioneRidotta.toFixed(2)}</p>
+                  <div className="grid grid-cols-2 gap-3 md:gap-4">
+                    <div className="p-4 md:p-5 rounded-2xl md:rounded-3xl bg-neutral-50 border border-neutral-100">
+                      <p className="text-[9px] md:text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Sanzione</p>
+                      <p className="text-base md:text-lg font-black text-neutral-900">€ {risultato.sanzioneRidotta.toFixed(2)}</p>
                     </div>
-                    <div className="p-5 rounded-3xl bg-neutral-50 border border-neutral-100">
-                      <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Interessi</p>
-                      <p className="text-lg font-black text-neutral-900">€ {risultato.totaleInteressi.toFixed(2)}</p>
+                    <div className="p-4 md:p-5 rounded-2xl md:rounded-3xl bg-neutral-50 border border-neutral-100">
+                      <p className="text-[9px] md:text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Interessi</p>
+                      <p className="text-base md:text-lg font-black text-neutral-900">€ {risultato.totaleInteressi.toFixed(2)}</p>
                     </div>
                   </div>
                 </div>
@@ -264,17 +264,17 @@ export function FormRavvedimento() {
                   </div>
                 )}
 
-                <div className="flex gap-4 pt-4">
-                  <Button type="button" variant="outline" onClick={reset} className="h-14 border-neutral-200 rounded-2xl px-6 font-bold text-neutral-600 hover:bg-neutral-50 shadow-sm transition-all">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-4">
+                  <Button type="button" variant="outline" onClick={reset} className="h-12 md:h-14 border-neutral-200 rounded-xl md:rounded-2xl px-6 font-bold text-neutral-600 hover:bg-neutral-50 shadow-sm transition-all order-2 sm:order-1">
                     <RotateCcw className="mr-2 h-4 w-4" /> Reset
                   </Button>
                   <PDFDownloadLink
                     document={<DocumentoPDF risultato={risultato} />}
                     fileName={`ravvedimento_${risultato.input.codiceTributo}_${format(new Date(), 'dd-MM-yyyy')}.pdf`}
-                    className="flex-1"
+                    className="flex-1 order-1 sm:order-2"
                   >
                     {({ loading }) => (
-                      <Button type="button" className="w-full h-14 bg-success hover:bg-success-dark text-white rounded-2xl font-black text-lg shadow-xl shadow-success/20 hover:-translate-y-0.5 active:scale-95 transition-all" disabled={loading}>
+                      <Button type="button" className="w-full h-12 md:h-14 bg-success hover:bg-success-dark text-white rounded-xl md:rounded-2xl font-black text-base md:text-lg shadow-xl shadow-success/20 hover:-translate-y-0.5 active:scale-95 transition-all" disabled={loading}>
                         {loading ? (
                           <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Generazione...</>
                         ) : (

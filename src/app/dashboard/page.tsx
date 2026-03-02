@@ -87,10 +87,10 @@ export default function DashboardPage() {
                         </div>
                         <span className="text-xl font-bold text-neutral-900 tracking-tight">RavvedimentoFacile</span>
                     </Link>
-                    <div className="flex items-center gap-4">
-                        <div className="hidden sm:flex flex-col items-end mr-2">
-                            <span className="text-sm font-bold text-neutral-900 leading-none">Ciao, {user?.firstName}</span>
-                            <span className="text-[10px] text-neutral-500 font-medium uppercase mt-0.5 tracking-wider">Account {trialInfo?.plan || 'Free'}</span>
+                    <div className="flex items-center gap-3 md:gap-4">
+                        <div className="flex flex-col items-end">
+                            <span className="text-[10px] md:text-sm font-bold text-neutral-900 leading-none">Ciao, {user?.firstName}</span>
+                            <span className="text-[8px] md:text-[10px] text-neutral-500 font-medium uppercase mt-0.5 tracking-wider">Account {trialInfo?.plan || 'Free'}</span>
                         </div>
                         <UserButton afterSignOutUrl="/" />
                     </div>
@@ -116,29 +116,29 @@ export default function DashboardPage() {
                     <div className="lg:col-span-5 xl:col-span-4 space-y-8">
 
                         {/* Trial Status Card */}
-                        <div className="bg-gradient-to-br from-primary to-primary-dark rounded-[2rem] p-6 text-white shadow-2xl shadow-primary/30 relative overflow-hidden group">
+                        <div className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl md:rounded-[2rem] p-5 md:p-6 text-white shadow-2xl shadow-primary/30 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform pointer-events-none">
-                                <Shield className="h-24 w-24" />
+                                <Shield className="h-16 w-16 md:h-24 md:w-24" />
                             </div>
                             <div className="relative z-10">
-                                <div className="flex items-center gap-2 mb-4">
-                                    <div className="h-6 w-6 rounded-lg bg-white/20 flex items-center justify-center">
-                                        <Clock className="h-3.5 w-3.5 text-white" />
+                                <div className="flex items-center gap-2 mb-3 md:mb-4">
+                                    <div className="h-5 w-5 md:h-6 md:w-6 rounded-lg bg-white/20 flex items-center justify-center">
+                                        <Clock className="h-3 w-3 md:h-3.5 md:w-3.5 text-white" />
                                     </div>
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Periodo di prova</span>
+                                    <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-white/80">Periodo di prova</span>
                                 </div>
-                                <h3 className="text-4xl font-black mb-1">{trialInfo?.daysRemaining} Giorni</h3>
-                                <p className="text-primary-foreground/70 text-sm font-medium">Accesso illimitato alle funzioni Pro</p>
+                                <h3 className="text-3xl md:text-4xl font-black mb-1">{trialInfo?.daysRemaining} Giorni</h3>
+                                <p className="text-primary-foreground/70 text-xs md:text-sm font-medium">Accesso illimitato alle funzioni Pro</p>
 
-                                <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                                <div className="mt-6 md:mt-8 pt-5 md:pt-6 border-t border-white/10 flex items-center justify-between">
                                     <div className="flex -space-x-2">
                                         {[FileText, History, Download].map((Icon, i) => (
-                                            <div key={i} className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center border-2 border-primary backdrop-blur-sm">
-                                                <Icon className="h-4 w-4" />
+                                            <div key={i} className="h-8 w-8 md:h-9 md:w-9 rounded-full bg-white/10 flex items-center justify-center border-2 border-primary backdrop-blur-sm">
+                                                <Icon className="h-3.5 w-3.5 md:h-4 md:w-4" />
                                             </div>
                                         ))}
                                     </div>
-                                    <Link href="/pricing" className="text-[11px] font-bold bg-white text-primary px-5 py-2.5 rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all">
+                                    <Link href="/pricing" className="text-[10px] md:text-[11px] font-bold bg-white text-primary px-4 md:px-5 py-2 md:py-2.5 rounded-xl md:rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all">
                                         Upgrade
                                     </Link>
                                 </div>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                         </div>
 
                         {/* Recent History */}
-                        <div className="bg-white rounded-[2rem] border border-neutral-200 overflow-hidden shadow-sm flex flex-col h-[500px]">
+                        <div className="bg-white rounded-2xl md:rounded-[2rem] border border-neutral-200 overflow-hidden shadow-sm flex flex-col h-[400px] md:h-[500px]">
                             <div className="p-6 border-b border-neutral-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-md z-10">
                                 <div className="flex items-center gap-2">
                                     <div className="h-8 w-8 rounded-xl bg-neutral-100 flex items-center justify-center">

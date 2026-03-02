@@ -29,15 +29,15 @@ export default async function Home() {
               <Link href="/dashboard" className="hover:text-primary transition-colors text-primary font-semibold">Vai alla Dashboard</Link>
             </SignedIn>
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <SignedOut>
               <SignInButton mode="modal">
-                <button className="text-sm font-medium text-neutral-600 hover:text-primary transition-colors">
+                <button className="text-xs md:text-sm font-medium text-neutral-600 hover:text-primary transition-colors pr-2 md:pr-0">
                   Accedi
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button className="bg-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
+                <button className="bg-primary text-white text-xs md:text-sm font-medium px-3 md:px-4 py-1.5 md:py-2 rounded-lg hover:bg-primary-dark transition-colors">
                   Prova Gratis
                 </button>
               </SignUpButton>
@@ -53,10 +53,11 @@ export default async function Home() {
         <section className="py-16 md:py-24">
           <div className="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 leading-tight">
-                Il ravvedimento operoso, <span className="text-primary">finalmente semplice</span>
+              <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-900 leading-tight">
+                Il ravvedimento operoso, <br className="hidden md:block" />
+                <span className="text-primary italic">finalmente semplice</span>
               </h1>
-              <p className="text-lg text-neutral-600 max-w-lg">
+              <p className="text-base md:text-lg text-neutral-600 max-w-lg">
                 Calcola sanzioni e interessi legali in pochi secondi.
                 Sostituisci i tuoi fogli Excel con uno strumento professionale
                 sempre aggiornato alla normativa vigente.
@@ -77,26 +78,26 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="lg:pl-8">
-              <div className="aspect-video bg-neutral-900 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden relative group cursor-pointer border-4 border-white">
+            <div className="lg:pl-8 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <div className="w-full aspect-video bg-neutral-900 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden relative group cursor-pointer border-4 border-white">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
-                <div className="h-20 w-20 bg-primary rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform relative z-10">
-                  <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
+                <div className="h-16 w-16 md:h-20 md:w-20 bg-primary rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform relative z-10">
+                  <div className="w-0 h-0 border-t-[8px] md:border-t-[10px] border-t-transparent border-l-[14px] md:border-l-[18px] border-l-white border-b-[8px] md:border-b-[10px] border-b-transparent ml-1"></div>
                 </div>
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p className="text-white/60 text-sm font-medium">Guarda come funziona RavvedimentoFacile</p>
+                <div className="absolute bottom-4 md:bottom-6 left-4 right-4 md:left-6 md:right-6">
+                  <p className="text-white/60 text-xs md:text-sm font-medium">Guarda come funziona RavvedimentoFacile</p>
                 </div>
               </div>
-              <div className="mt-8 flex justify-center lg:justify-start">
+              <div className="mt-8 flex justify-center lg:justify-start w-full">
                 <SignedOut>
                   <SignUpButton mode="modal">
-                    <button className="bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 hover:-translate-y-1">
+                    <button className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 hover:-translate-y-1">
                       Inizia la prova gratuita
                     </button>
                   </SignUpButton>
                 </SignedOut>
                 <SignedIn>
-                  <Link href="/dashboard" className="bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 hover:-translate-y-1">
+                  <Link href="/dashboard" className="w-full sm:w-auto text-center bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 hover:-translate-y-1">
                     Vai al calcolatore
                   </Link>
                 </SignedIn>
