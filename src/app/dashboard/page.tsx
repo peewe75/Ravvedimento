@@ -80,14 +80,14 @@ export default function DashboardPage() {
     return (
         <div className="min-h-screen bg-neutral-50 pb-12 font-sans">
             <header className="bg-white border-b border-neutral-200 sticky top-0 z-40 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="h-9 w-9 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-6 transition-transform">
-                            <Calculator className="h-5 w-5 text-white" />
+                <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 h-16 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group">
+                        <div className="h-7 w-7 sm:h-9 sm:w-9 shrink-0 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-6 transition-transform">
+                            <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-neutral-900 tracking-tight">RavvedimentoFacile</span>
+                        <span className="text-base sm:text-xl font-bold text-neutral-900 tracking-tight truncate max-w-[130px] sm:max-w-none">RavvedimentoFacile</span>
                     </Link>
-                    <div className="flex items-center gap-3 md:gap-4">
+                    <div className="flex items-center gap-2 sm:gap-3 md:gap-4 shrink-0">
                         <div className="flex flex-col items-end">
                             <span className="text-[10px] md:text-sm font-bold text-neutral-900 leading-none">Ciao, {user?.firstName}</span>
                             <span className="text-[8px] md:text-[10px] text-neutral-500 font-medium uppercase mt-0.5 tracking-wider">Account {trialInfo?.plan || 'Free'}</span>

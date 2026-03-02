@@ -14,12 +14,12 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-neutral-50">
       <header className="bg-white border-b border-neutral-200 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
-              <Calculator className="h-5 w-5 text-white" />
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 shrink-0 bg-primary rounded-lg flex items-center justify-center">
+              <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-neutral-900">RavvedimentoFacile</span>
+            <span className="text-base sm:text-xl font-bold text-neutral-900 tracking-tight sm:tracking-normal truncate max-w-[130px] sm:max-w-none">RavvedimentoFacile</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-600">
             <a href="#come-funziona" className="hover:text-primary transition-colors">Come funziona</a>
@@ -29,15 +29,15 @@ export default async function Home() {
               <Link href="/dashboard" className="hover:text-primary transition-colors text-primary font-semibold">Vai alla Dashboard</Link>
             </SignedIn>
           </nav>
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3 shrink-0">
             <SignedOut>
               <SignInButton mode="modal">
-                <button className="text-xs md:text-sm font-medium text-neutral-600 hover:text-primary transition-colors pr-2 md:pr-0">
+                <button className="text-xs md:text-sm font-medium text-neutral-600 hover:text-primary transition-colors pr-1 sm:pr-2 md:pr-0 whitespace-nowrap">
                   Accedi
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button className="bg-primary text-white text-xs md:text-sm font-medium px-3 md:px-4 py-1.5 md:py-2 rounded-lg hover:bg-primary-dark transition-colors">
+                <button className="bg-primary text-white text-[11px] sm:text-xs md:text-sm font-medium px-2 sm:px-3 md:px-4 py-1.5 md:py-2 rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap">
                   Prova Gratis
                 </button>
               </SignUpButton>
