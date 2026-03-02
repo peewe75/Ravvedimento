@@ -198,9 +198,11 @@ export default async function Home() {
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-success" /> 5 calcoli/mese</li>
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-success" /> Calcolo base</li>
                 </ul>
-                <button className="w-full py-2 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors">
-                  Inizia gratis
-                </button>
+                <SignUpButton mode="modal">
+                  <button className="w-full py-2 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors">
+                    Inizia gratis
+                  </button>
+                </SignUpButton>
               </div>
 
               <div className="border-2 border-primary rounded-xl p-6 relative">
@@ -215,9 +217,11 @@ export default async function Home() {
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-success" /> Storico completo</li>
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-success" /> Invio email</li>
                 </ul>
-                <button className="w-full py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
-                  Prova gratis
-                </button>
+                <SignUpButton mode="modal">
+                  <button className="w-full py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors">
+                    Prova gratis
+                  </button>
+                </SignUpButton>
               </div>
 
               <div className="border border-neutral-200 rounded-xl p-6">
@@ -228,9 +232,11 @@ export default async function Home() {
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-success" /> Fino a 5 utenti</li>
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-success" /> Supporto prioritario</li>
                 </ul>
-                <button className="w-full py-2 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors">
-                  Contattaci
-                </button>
+                <SignUpButton mode="modal">
+                  <button className="w-full py-2 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors">
+                    Contattaci
+                  </button>
+                </SignUpButton>
               </div>
             </div>
           </div>
